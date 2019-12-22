@@ -1,5 +1,5 @@
 const { globalShortcut } = require('electron');
-const {ShortcutConfig} = require('./shortcutConfig');
+const { ShortcutConfig } = require('./shortcutConfig');
 
 class shortcuts {
     constructor(win, app) {
@@ -18,11 +18,27 @@ class shortcuts {
     // open quick add popup
     registerQuickAddShortcut() {
         globalShortcut.register(this.shortcutConfig.config['quick-add'], () => {
-            this.win.webContents.sendInputEvent({
-                type: "char",
-                keyCode: 'q'
-            });
             this.win.show();
+            this.win.focus();
+            setTimeout(() => {
+                this.win.webContents.sendInputEvent({
+                    type: "char",
+                    keyCode: 'q'
+                });
+                setTimeout(() => {
+                    const keys = Array.from('#inbox');
+                    keys.forEach(key => {
+                        this.win.webContents.sendInputEvent({
+                            type: "char",
+                            keyCode: key
+                        });
+                    });
+                    this.win.webContents.sendInputEvent({
+                        type: "keyDown",
+                        keyCode: 'Return',
+                    });
+                }, 1);
+            }, 50);
         });
     }
 
@@ -34,7 +50,7 @@ class shortcuts {
                 this.win.focus();
                 return;
             }
-            
+
             this.win.hide();
         });
     }
