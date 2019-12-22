@@ -134,7 +134,6 @@ function createWindow () {
     // react on close and minimzie
     win.on('minimize',function(event){
         event.preventDefault();
-        win.hide();
     });
 
     win.on('close', function (event) {
