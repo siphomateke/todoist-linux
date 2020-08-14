@@ -119,6 +119,7 @@ function createWindow () {
         title: 'Todoist',
         icon: path.join(__dirname, 'icons/icon.png'),
         show: !startMinimized,
+        autoHideMenuBar: true,
     });
 
 
