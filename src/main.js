@@ -18,6 +18,7 @@ let gOauthWindow = undefined;
 let tray = null;
 let contextMenu;
 let config = {};
+const startMinimized = (process.argv || []).indexOf('--hidden') !== -1;
 
 function handleRedirect(e, url) {
     // there may be some popups on the same page
@@ -116,7 +117,8 @@ function createWindow () {
         width: mainWindowState.width,
         height: mainWindowState.height,
         title: 'Todoist',
-        icon: path.join(__dirname, 'icons/icon.png')
+        icon: path.join(__dirname, 'icons/icon.png'),
+        show: !startMinimized,
     });
 
 
